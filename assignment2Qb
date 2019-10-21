@@ -1,0 +1,121 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+void maxifactor(int a, int b)
+{
+	/*int c = a, d = b;
+	while (a != b)
+	{
+		if (a - b >= b)
+			a = a - b;
+		else
+		{
+			int temp = a;
+			a = b;
+			b = temp - b;
+		}
+	}
+	cout<<d/a << "/" << c/a << endl;*/
+	int c = a, d = b;
+	int temp = a % b;
+	while (temp != 0) {
+		c = d;
+		d = temp;
+		temp = c % d;
+	}
+	cout << b / d << "/" << a / d << endl;
+}
+int main()
+{
+	cout << "Input the number of dice(s): ";
+	int num = 0;
+	int maxmum = 0;
+	long long denominator = 1;
+	int count = 0;
+	cin >> num;
+	double dice[11] = { 0 };
+	long long ans[12][145] = { 0 };
+	for (int i = 1; i <= num; i++)
+	{
+		do {
+			switch (i)
+			{
+			case 1: cout << "Input the number of faces for the 1st dice: ";
+				break;
+			case 2: cout << "Input the number of faces for the 2nd dice: ";
+				break;
+			case 3:cout << "Input the number of faces for the 3rd dice: ";
+				break;
+			default:cout << "Input the number of faces for the " << i << "th " << "dice: ";
+			}
+			cin >> dice[i - 1];
+			if (dice[i - 1] < 1 || dice[i - 1]>12 || dice[i - 1] != int(dice[i - 1]))
+			{
+				cout << "Error: input value should be integer in range 1..12" << endl;
+			}
+		} while (dice[i - 1] < 1 || dice[i - 1]>12 || dice[i - 1] != int(dice[i - 1]));
+		if (dice[i - 1] != 1) 
+			count++;
+		maxmum += dice[i - 1];
+		denominator *= dice[i - 1];
+		if (i == 1)
+		{
+			for (int a = 0; a < dice[i - 1]; a++)
+			{
+				ans[0][a + 1] = 1;
+			};
+		}
+		else
+		{
+			for (int j = 1; j < dice[i - 1] + 1; j++)
+			{
+				for (int b = i; b < maxmum + 1; b++)
+				{
+
+					if (b - j - i + 1 >= 0)
+						ans[i - 1][b] += ans[i - 2][b - j];
+
+
+				}
+			}
+		}
+	};
+	int width = 1;
+	if (maxmum > 9)
+		width = 2;
+	if (maxmum > 99)
+		width = 3;
+	if (count > 1)
+	{
+		if ((num + maxmum) % 2 == 0)
+		{
+			cout << "Probability of " << setw(width) << (num + maxmum) / 2 << " = ";
+			maxifactor(denominator, ans[num - 1][(num + maxmum) / 2]);
+			for (int i = (num + maxmum) / 2-1; i >= num; i--)
+			{
+				cout << "Probability of " << setw(width) << i << " = "; 
+				maxifactor(denominator, ans[num - 1][i]);
+				cout << "Probability of " << setw(width) << num+maxmum-i << " = ";
+				maxifactor(denominator, ans[num - 1][num + maxmum-i]);
+			}
+		}
+		else
+		{
+			for (int i = (num + maxmum-1) / 2; i >= num; i--)
+			{
+				cout << "Probability of " << setw(width) << i << " = ";
+				maxifactor(denominator, ans[num - 1][i]);
+				cout << "Probability of " << setw(width) << num + maxmum - i << " = ";
+				maxifactor(denominator, ans[num - 1][num + maxmum-i]);
+			}
+		}
+	}
+	else
+	{
+		for (int i = num; i <= maxmum; i++)
+		{
+			cout << "Probability of " << setw(width) << i << " = "<<ans[num-1][i]<<"/"<<denominator<<endl;
+		}
+	}
+	return 0;
+}
