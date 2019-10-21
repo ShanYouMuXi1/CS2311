@@ -1,0 +1,102 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+	cout << "Enter	the	current	year:" << endl;
+	int cy;
+	cin >> cy;
+	cout << "Enter	the	current	month:" << endl;
+	int cm;
+	cin >> cm;
+	if (cm < 1 || cm>12)
+	{
+		cout << "Invalid	Month	Input!";
+	}
+	else
+	{
+		cout << "Enter	your	current	age	in	years:" << endl;
+		int ca;
+		cin >> ca;
+		if (ca < 0)
+		{
+			cout << "The	value	for	age	cannot	be	a	negative	integer!";
+		}
+		else if (ca > 200)
+		{
+			cout << "Sorry,	people	may	be	dead	by	this	age!";
+		}
+		else
+		{
+			cout << "Enter	the	month	in	which	you	were	born:" << endl;
+			int m;
+			cin >> m;
+			if (m < 1 || m>12)
+			{
+				cout << "Invalid	Month	Input!";
+			}
+			else
+			{
+				cout << "Enter	the	year	for	which	you	wish	to	know	your	age:" << endl;
+				int fy;
+				cin >> fy;
+				cout << "Enter	the	month	in	the	year	for	which	you	wish	to	know	your	age:" << endl;
+				int fm;
+				cin >> fm;
+				if (fm < 1 || fm>12)
+				{
+					cout << "Invalid	Month	Input!";
+				}
+				else
+				{
+					int by = cy - ca;
+					if (by > fy || by == fy && m > fm)
+					{
+						cout << "You	were	not	born!";
+					}
+					else
+					{
+						int t = (fy - by) * 12 + fm - m;
+						int fa = t / 12;
+						int mm = t - 12 * fa;
+						cout << "Your	age	in	" << fy << "/" << fm << ":" << endl;
+						int adfa = fa % 2;
+						int admm = mm % 2;
+						if (fa == 0 && mm == 0 || fa == 1 && mm == 0 || fa == 0 && mm == 1 || fa == 1 && mm == 1)
+						{
+							cout << fa << " year " << "and " << mm << " month" << endl;
+						}
+						else if (fa == 0||fa==1)
+						{
+							cout << fa << " year " << "and " << mm << " months" << endl;
+						}
+						else if (mm == 0||mm==1)
+						{
+							cout << fa << " years " << "and " << mm << " month" << endl;
+						}
+						else
+						{
+							cout << fa << " years " << "and " << mm << " months" << endl;
+						};
+						if (adfa != 0 && admm != 0)
+						{
+							cout << "Both of " << fa << " and " << mm << " are odd!";
+						}
+						else if (adfa != 0)
+						{
+							cout << fa << " is odd!";
+						}
+						else if (admm != 0)
+						{
+							cout << mm << " is odd!";
+						}
+						else
+						{
+							cout << "Both of " << fa << " and " << mm << " are not odd!";
+						};
+					};
+				};
+			};
+		};
+	};
+	return 0;
+}
