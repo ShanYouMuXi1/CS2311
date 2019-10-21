@@ -1,0 +1,62 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main()
+{
+	cout << "Input the number of dice(s): ";
+	int num = 0;
+	int maxmum = 0;
+	int  denominator = 1;
+	cin >> num;
+	int dice[11] = { 0 };
+	long long ans[12][145] = { 0 };
+	for (int i = 1; i <= num; i++)
+	{
+		switch (i)
+		{
+		case 1: cout << "Input the number of faces for the 1st dice: " ;
+			break;
+		case 2: cout << "Input the number of faces for the 2nd dice: " ;
+			break;
+		case 3:cout << "Input the number of faces for the 3rd dice: " ;
+			break;
+		default:cout << "Input the number of faces for the " << i << "th " << "dice: " ;
+		}
+		cin >> dice[i - 1];
+		maxmum += dice[i - 1];
+		denominator *= dice[i - 1];
+		if (i == 1)
+		{
+			for (int a = 0; a < dice[i-1]; a++)
+			{
+				ans[0][a + 1] = 1;
+			};
+		}
+		else
+		{
+			for (int j = 1; j < dice[i-1] + 1; j++)
+			{
+				for (int b = i; b < maxmum + 1; b++)
+				{
+
+					if (b - j - i+1 >= 0)
+						ans[i - 1][b] += ans[i - 2][b - j];
+
+
+				}
+			}
+		}
+	};
+	int width = 1;
+	if (maxmum > 9)
+		width = 2;
+	if (maxmum > 99)
+		width = 3;
+	for (int c = num; c < maxmum + 1; c++)
+	{
+		cout << "Probability of " << setw(width) << c << " = " << ans[num - 1][c] << "/" << denominator << endl;
+
+	}
+	return 0;
+}
