@@ -1,0 +1,190 @@
+#include<iostream>
+#include "today.h"
+using namespace std;
+int main()
+{
+	int cyy = ThisYear();
+	int cmm = ThisMonth();
+	int cdd = ThisDay();
+	int year;
+	int month;
+	int date;
+	cout << "Please enter your birth date (yyyy mm dd) : \n";
+	cin >> year >> month >> date;
+	if (year < 1900)
+	{
+		cout << "Year not in range!!";
+		return 0;
+	}
+	else if (month < 1 || month>12 || date > 31 || date < 1)
+	{
+		cout << "Invalid date!!";
+		return 0;
+	}
+	else if ((month == 4 || month == 6 || month == 9 || month == 11)&&date> 30)
+	{
+			cout << "Invalid date!!";	
+			return 0;
+	}
+	else if (year % 4 != 0 && month == 2 && date > 28 )
+	{
+		cout << "Invalid date!!";
+		return 0;
+	}
+	else if (year%100==0 && year % 400 != 0 && month == 2 && date > 28)
+	{
+		cout << "Invalid date!!";
+	}
+	else if (year % 4 == 0 &&year%100!=0&& month == 2 && date > 29||year%400==0 && month == 2 && date > 29)
+	{
+		cout << "Invalid date!!";
+		return 0;
+	}
+	else if (year > cyy || year == cyy && month > cmm || year == cyy && month == cmm && date > cdd)
+	{
+		cout << "You are not born yet!!";
+		return 0;
+	}
+	else
+	{
+		if (year == cyy && month == cmm && date == cdd)
+		{
+			cout << "Happy Birthday!!" << endl;
+		}
+		else
+		{
+			if (date == 1 || date == 21 || date == 31)
+			{
+				cout << "Your birthday was on " << date << "st ";
+			}
+			else if (date == 2 || date == 22)
+			{
+				cout << "Your birthday was on " << date << "nd ";
+			}
+			else if (date == 3|| date==23)
+			{
+				cout << "Your birthday was on " << date << "rd ";
+			}
+			else
+			{
+				cout << "Your birthday was on " << date << "th ";
+			}
+			switch (month)
+			{
+			case 1:
+				cout << "January " << year << "." << endl;
+				break;
+			case 2:
+				cout << "February " << year << "." << endl;
+				break;
+			case 3:
+				cout << "March " << year << "." << endl;
+				break;
+			case 4:
+				cout << "April " << year << "." << endl;
+				break;
+			case 5:
+				cout << "May " << year << "." << endl;
+				break;
+			case 6:
+				cout << "June " << year << "." << endl;
+				break;
+			case 7:
+				cout << "July " << year << "." << endl;
+				break;
+			case 8:
+				cout << "August " << year << "." << endl;
+				break;
+			case 9:
+				cout << "September " << year << "." << endl;
+				break;
+			case 10:
+				cout << "October " << year << "." << endl;
+				break;
+			case 11:
+				cout << "November " << year << "." << endl;
+				break;
+			case 12:
+				cout << "December " << year << "." << endl;
+				break;
+			}
+		}
+		int day;
+		if (month == 1 || month == 2)
+		{
+			int month1 = month + 10;
+			int year1 = year - 1;
+			day = date + year1 + year1 / 4 + (year1 / 100) / 4 + (month1 * 31) / 12;
+			day -= year1 / 100;
+			day = day % 7;
+		}
+		else
+		{
+			int month2 = month - 2;
+			day = date + year + year / 4 + (year / 100) / 4 + (month2 * 31) / 12;
+			day -= year / 100;
+			day = day % 7;
+		}
+
+		if (year==cyy&&month == cmm && date == cdd)
+		{
+			cout << "Today is ";
+			switch (day) {
+			case 1:
+				cout << "Monday" << "." << endl;
+				break;
+			case 2:
+				cout << "Tuesday" << "." << endl;
+				break;
+			case 3:
+				cout << "Wednesday" << "." << endl;
+				break;
+			case 4:
+				cout << "Thursday" << "." << endl;
+				break;
+			case 5:
+				cout << "Friday" << "." << endl;
+				break;
+			case 6:
+				cout << "Saturday" << "." << endl;
+				break;
+			case 0:
+				cout << "Sunday" << "." << endl;
+				break;
+			}
+		}
+		else
+		{
+			cout << "It was a ";
+			switch (day) {
+			case 1:
+				cout << "Monday" << "." << endl;
+				break;
+			case 2:
+				cout << "Tuesday" << "." << endl;
+				break;
+			case 3:
+				cout << "Wednesday" << "." << endl;
+				break;
+			case 4:
+				cout << "Thursday" << "." << endl;
+				break;
+			case 5:
+				cout << "Friday" << "." << endl;
+				break;
+			case 6:
+				cout << "Saturday" << "." << endl;
+				break;
+			case 0:
+				cout << "Sunday" << "." << endl;
+				break;
+			}
+		}
+		int luckyNum = year % 10 + (year / 10) % 10 + (year / 100) % 10 + year / 1000 + month % 10 + month / 10 + date % 10 + date / 10;
+		luckyNum = luckyNum % 10 + luckyNum / 10;
+		luckyNum = luckyNum % 10 + luckyNum / 10;
+		cout << "Your lucky number is " << luckyNum << ".";
+
+	}
+	return 0; 
+}
