@@ -6,12 +6,12 @@ const int LEN = 5;
 // TODO 1: Complete the function declaration of GCD(), takes 2 interger as parameter.
 int GCD(int a, int b) {
    // TODO 2: Complete the function implementation, return the GCD of 2 given number
-	if (a < b)
+	/*if (a < b)
 	{
 		int temp = a;
 		a = b;
 		b = temp;
-	}
+	}*/
 	while (a % b != 0)
 	{
 		int temp2 = a%b;
@@ -34,8 +34,6 @@ int main(){
     answer = Num[0];
     for(int i = 1; i < LEN; i++){
         // TODO 3: Complete the loop, to get the GCD of all input numbers.
-		if (i == 1)
-			answer = Num[0];
 		answer=GCD(Num[i], answer);
     }
     cout << answer << endl;
