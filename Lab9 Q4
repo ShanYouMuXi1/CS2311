@@ -1,0 +1,100 @@
+#include<iostream>
+#include<cmath>
+#include<iomanip>
+using namespace std;
+int main()
+{
+	class Triangle {
+	private:
+		double side1;
+		double side2;
+		double side3;
+		double area;
+	public:
+		Triangle()
+		{
+			side1 = 0;
+			side2 = 0;
+			side3 = 0;
+		}
+		Triangle(double a, double b, double c)
+		{
+			side1 = a;
+			side2 = b;
+			side3 = c;
+			area = 0;
+		}
+		void setSides(double a, double b, double c)
+		{
+			side1 = a;
+			side2 = b;
+			side3 = c;
+		}
+		void computeArea()
+		{
+			double s = (side1+ side2 + side3) / 2;
+			area = sqrt(s*(s - side1)*(s - side2)*(s - side3));
+		}
+		double getArea()
+		{
+			return area;
+		}
+	};
+	cout<<setprecision(2);
+	cout << fixed;
+	//Q2
+	/*Triangle triangle1;
+	triangle1.computeArea();
+	cout << "Area of triangle1:	" << triangle1.getArea() << endl;
+	Triangle triangle2(3,4,5);
+	triangle2.computeArea();
+	cout << "Area of triangle2:	" << triangle2.getArea() << endl;*/
+	cout << "Enter	a	number	between	1	and	10:	" << endl;
+	int n;
+	cin >> n;
+	Triangle arr[10];
+	for (int i = 0; i < n; i++)
+	{
+		cout << "Enter	the	sides	of	triangle " << i + 1 << ":" << endl;
+		double a, b, c;
+		cin >> a >> b >> c;
+		arr[i].setSides(a, b, c);
+		arr[i].computeArea();
+	}
+	double temp = arr[0].getArea();
+	int num = 1;
+	for (int i = 0; i < n; i++)
+	{
+		cout << "Area	of	triangle " <<i+1 <<": " << arr[i].getArea() << endl;
+		if (temp < arr[i + 1].getArea())
+		{
+			num = i + 2;
+			temp = arr[i + 1].getArea();
+		}
+	}
+	cout << "Triangle	" << num << " has	the	largest	area: " << arr[num-1].getArea();
+	//Q3
+	/*cout << "Enter new sides for triangle1:" << endl;
+	double a, b, c;
+	cin >> a >> b >> c;
+	Triangle triangle1(a, b, c);
+	triangle1.computeArea();*/
+
+	/*cout << "Area of triangle1:	" << triangle1.getArea() << endl;*/
+
+	/*cout << "Enter new sides for triangle2:" << endl;
+	double d, e, f;
+	cin >> d >> e >> f;
+	Triangle triangle2(d, e, f);
+	triangle2.computeArea();
+	double a1 = triangle1.getArea();
+	double b1 = triangle2.getArea();
+	if (a1 > b1)
+	{
+		cout << "The	area	of	triangle1 (" << a1 << ")	is	greater	than	that	of	triangle2 (" << b1 << ")." << endl;
+	}
+	else
+	{
+		cout << "The	area	of	triangle1 (" << a1 << ")	is	not greater	than	that	of	triangle2 (" << b1 << ")." << endl;
+	}*/
+}
